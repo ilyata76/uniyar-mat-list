@@ -1,0 +1,80 @@
+
+
+.input-form {
+    width: 30%;
+
+    border-radius: 20px;
+    border-color: var(--first-accent-color);
+    padding: var(--base-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} @media screen and (max-width: 1000px) {
+    .input-form {
+        width: 90%
+    }
+}
+
+.input-position {
+    width: 100%;
+    margin: 0;
+    padding: calc(var(--base-padding) * 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-text {
+    padding-left: 20px;
+}
+
+    .input-field {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid;
+        border-color: var(--first-accent-color);
+        padding: calc(var(--base-padding) * 2);
+        text-align: center;
+    }
+
+    .input-field:focus {
+        outline: none;
+        border: none;
+        border-bottom: 2px solid var(--main-accent-color);
+    }
+
+    .input-button {
+        border: none;
+        color: var(--main-accent-color);
+        background-color: var(--main-background-color);
+    }
+
+    .input-button:hover {
+        color: var(--first-accent-color);
+    }
+
+    input[type="file"]::file-selector-button {
+        margin-right: 20px;
+        border: none;
+        background: var(--main-accent-color);
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: var(--main-background-color);
+        cursor: pointer;
+        width: 50%;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        border: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border-bottom: 1px solid;
+        padding: calc(var(--base-padding) * 2);
+        border-color: var(--first-accent-color);
+    }
+
+    input[type="file"]:focus {
+        border-bottom: 2px solid var(--main-accent-color);
+    }

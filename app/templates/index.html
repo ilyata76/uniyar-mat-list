@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<div class="demid-logo-header">
+    <img src="{{url_for('static', filename='logo.svg')}}"/>
+</div>
+<div class="search" id="mat-form-search">
+    <img src="{{url_for('static', filename='search.svg')}}"/>
+    <form action="/api/material", method="GET" class="common-search">
+        <input type="text" name="keyword" placeholder="Поиск по научной базе" required/>
+        <input type="text" name="searchby" value="name" style="display: none;"/>
+        <input type="submit" style="display: none;"/>
+    </form>
+</div>
+<div class="add-buttons">
+    <button class="add-search-button" id="add-search-button" href="/additional_search">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 7.5359C20.6667 9.0755 20.6667 12.9245 18 14.4641L6 21.3923C3.33333 22.9319 7.70529e-07 21.0074 9.05125e-07 17.9282L1.51081e-06 4.07179C1.6454e-06 0.992591 3.33334 -0.931906 6 0.607695L18 7.5359Z" fill="#ED1C24"/>
+        </svg> <span id="add-search-span">поиск по категориям</span>
+    </button>
+    <a class="add-search-button" href="/api/material?searchby=all">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 7.5359C20.6667 9.0755 20.6667 12.9245 18 14.4641L6 21.3923C3.33333 22.9319 7.70529e-07 21.0074 9.05125e-07 17.9282L1.51081e-06 4.07179C1.6454e-06 0.992591 3.33334 -0.931906 6 0.607695L18 7.5359Z" fill="#ED1C24"/>
+        </svg> <span>общая база работ</span>
+    </a>
+</div>
+
+<script>
+    let search_state = 0; // 0 common 1 categorized
+    $(document).ready(function() {
+        var search_button = document.getElementById("add-search-button");
+        if (search_button) {
+            search_button.onclick = function() {
+                let mat_form_search = document.getElementById("mat-form-search");
+                let add_search_span = document.getElementById("add-search-span");
+                console.log(search_state);
+                if (search_state == 0) {
+                    search_state = 1;
+                    mat_form_search.innerHTML = `
+                        <form action="/api/material", method="GET", class="cat-form">
+                            <label for="searchby-select" class="cat-select-label">
+                                <svg width="20" height="22" viewBox="0 0 20 22" fill="black" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 7.5359C20.6667 9.0755 20.6667 12.9245 18 14.4641L6 21.3923C3.33333 22.9319 7.70529e-07 21.0074 9.05125e-07 17.9282L1.51081e-06 4.07179C1.6454e-06 0.992591 3.33334 -0.931906 6 0.607695L18 7.5359Z" fill="black"/>
+                                </svg> Категория поиска
+                            </label>
+                            <select class="form-select cat-select" name="searchby" id="searchby-select" required>
+                                <option value="authoremail">E-mail автора</option>
+                                <option value="authorname">ФИО автора</option>
+                                <option value="year">Год выпуска</option>
+                                <option value="department">Кафедра выпуска</option>
+                                <option value="name" selected>Название работы</option>
+                            </select>
+                            <label for="cat-keyword" class="cat-select-label"> 
+                                <svg width="20" height="22" viewBox="0 0 20 22" fill="black" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 7.5359C20.6667 9.0755 20.6667 12.9245 18 14.4641L6 21.3923C3.33333 22.9319 7.70529e-07 21.0074 9.05125e-07 17.9282L1.51081e-06 4.07179C1.6454e-06 0.992591 3.33334 -0.931906 6 0.607695L18 7.5359Z" fill="black"/>
+                                </svg> Значение в выбранной категории
+                            </label>
+                            <input type="text" name="keyword" required class="cat-keyword" id="cat-keyword"/>
+                            <input type="submit" class="cat-submit"/>
+                        </form>
+                    `;
+                    add_search_span.innerHTML = "обычный поиск";
+                } else {
+                    search_state = 0;
+                    console.log(mat_form_search);
+                    mat_form_search.innerHTML = `
+                        <img src="{{url_for('static', filename='search.svg')}}"/>
+                        <form action="/api/material", method="GET" class="common-search">
+                            <input type="text" name="keyword" placeholder="Поиск по научной базе" required/>
+                            <input type="text" name="searchby" value="name" style="display: none;"/>
+                            <input type="submit" style="display: none;"/>
+                        </form>
+                    `;
+                    add_search_span.innerHTML = "поиск по категориям";
+                }
+                    
+            }
+        }
+    });
+</script>
+{% endblock %}

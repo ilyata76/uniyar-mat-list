@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+{% endblock %}
+
+{% block body %}
+<h2>Авторизация</h2>
+
+<form action="/api/user/login" method="post" class="input-form">
+    {% if message %}
+    <span>{{message}}</span>
+    {% endif %}
+    <p class="input-position">
+        <input type="text" name="email" class="input-field" required placeholder="Почтовый адрес">
+    </p>
+    <p class="input-position">
+        <input type="password" name="password" class="input-field" required placeholder="Пароль">
+    </p>
+    <p class="input-position">
+        <input type="submit" class="input-button" value="Войти">
+    </p>
+</form>
+{% endblock %}

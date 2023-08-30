@@ -1,0 +1,270 @@
+
+html {
+    --main-accent-color: #0082C7;
+    --first-accent-color: black;
+    --secod-accent-color: white;
+    --main-background-color: white;
+    --first-background-color: #5c9ec2;
+
+    --base-padding: 10px;
+    --base-font-size: 24px;
+
+    --base-button-width: 100px;
+
+    font-size : var(--base-font-size)
+
+} @media screen and (max-width: 1000px) {
+    html {
+        --base-font-size: 16px;
+        --base-button-width: 60px;
+        --base-padding: 5px;
+    }
+} @media screen and (max-width: 500px) {
+    html {
+        --base-font-size: 12px;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a, a:hover, a:focus, button:focus, button:hover {
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.common-button {
+    color: var(--main-accent-color);
+    border-color: var(--main-accent-color);
+    background-color: var(--main-background-color);
+    outline: var(--main-accent-color);
+    
+    border: 1px solid;
+    border-radius: 20px;
+    min-width: calc(2 * var(--base-button-width));
+    padding: var(--base-padding);
+
+    text-align: center;
+    align-items: center;
+}
+
+.common-button:hover {
+    text-decoration: none;
+    color: var(--first-accent-color);
+    border-color: var(--first-accent-color);
+    outline: none;
+}
+
+
+.header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+    .header .demid-logo-header {
+        padding: calc(var(--base-padding) * 3);
+        max-height: 100%;
+        width: auto;
+        left: var(--base-padding);
+    }
+
+        .header .demid-logo-header img {
+            max-width: 20vw;
+            max-height: 20vh;
+        }
+
+    .header .user {
+        display: flex;
+        flex-direction: row;
+        padding: calc(var(--base-padding) * 3);
+        gap: var(--base-padding)
+    } @media screen and (max-width: 500px) {
+        .header .user {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+
+        .header .current-user .dropdown {
+            position: absolute;
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: calc(var(--base-padding));
+            right: calc(var(--base-padding) * 3);
+            border: 1px solid var(--main-accent-color);
+            border-radius: 20px;
+            font-size: calc(1rem - 2px);
+            margin-top: var(--base-padding);
+            background-color: var(--main-background-color);
+        }
+
+        .header .current-user .dropdown .menu-button {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--base-padding)/2);
+            background-color: var(--main-background-color);
+            outline: none;
+            border: none;
+            padding: 0;
+            color: var(--main-accent-color)
+        }
+
+        .header .current-user .dropdown .menu-button:hover {
+            color: var(--first-accent-color)
+        }
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex: 1
+}
+
+    .body .demid-logo-header img {
+        max-width: 40vw;
+        max-height: 40vh;
+    }
+
+    .body .search {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        border: 1px solid;
+        border-radius: 50px;
+        border-color: var(--main-accent-color);
+        padding: calc(var(--base-padding) / 2);
+        padding-left: calc(var(--base-padding) * 2);
+        padding-right: calc(var(--base-padding) * 2);
+        gap: var(--base-padding);
+
+        width: 50vw
+    } @media screen and (max-width: 1000px) {
+        .body .search {
+            width: 90vw;
+        }
+    }
+
+    .body .search img {
+        max-height: 4vh;
+        max-width: 4vh;
+        width: 100%;
+        height: 100%
+    }
+
+    .body .search .common-search {
+        width: 90%;
+        height: 100%;
+    }
+
+        .body .search .common-search input {
+            width: 100%;
+            height: 100%;
+            outline: none;
+            border: none;
+        }
+
+    .body .add-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: calc(var(--base-padding) * 3);
+        padding-top: var(--base-padding);
+    }
+
+    .body .add-buttons .add-search-button {
+        background-color: var(--main-background-color);
+        outline: none;
+        border: none;
+        padding: 0;
+        color: var(--main-accent-color);
+    }
+
+    .body .add-buttons .add-search-button:hover {
+        color: var(--first-accent-color);
+    }
+
+.footer {
+    padding: calc(var(--base-padding));
+}
+
+    .footer .footer-to-main {
+        padding: calc(var(--base-padding) * 2);
+    }
+
+        .footer .footer-to-main .to-main-button {
+            background-color: var(--main-background-color);
+            outline: none;
+            border: none;
+            padding: 0;
+            color: var(--main-accent-color);
+        }
+
+        .footer .footer-to-main .to-main-button:hover {
+            color: var(--first-accent-color)
+        }
+
+
+.cat-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--base-padding);
+    width: 100%;
+}
+
+    .cat-select {
+        width: 100%;
+        text-align: center;
+        border: none;
+        border-bottom: 1px solid var(--first-accent-color);
+    }
+
+    .cat-select:hover, .cat-select:focus {
+        outline: none;
+        border: none;
+        border-bottom: 3px solid var(--main-accent-color);
+    }
+
+    .cat-select-label {
+        margin: 0;
+        margin-top: calc(var(--base-padding) * 3);
+        padding-left: calc(var(--base-padding) * 3);
+        width: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: calc(var(--base-padding) * 3);
+    }
+
+    .cat-keyword {
+        width: 100%;
+        text-align: center;
+        border: none;
+        border-bottom: 1px solid var(--first-accent-color);
+    }
+
+    .cat-keyword:hover, .cat-keyword:focus {
+        outline: none;
+        border: none;
+        border-bottom: 3px solid var(--main-accent-color);
+    }
+
+    .cat-submit {
+        width: 100%;
+        text-align: center;
+        margin-top: var(--base-padding);
+        background-color: var(--main-background-color);
+        color: var(--main-accent-color);
+        border: none;
+    }

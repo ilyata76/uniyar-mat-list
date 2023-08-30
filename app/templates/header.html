@@ -1,0 +1,74 @@
+<div class="user" id="#user">
+    {% if current_user %}
+        <div class="current-user" id="current-user">
+            <button id="user-button" class="common-button">
+                {{current_user["surname"]}}
+                {{current_user["name"]}}
+                {% if current_user["middle_name"] %}
+                    {{current_user["middle_name"]}}
+                {% endif %}
+            </button>
+            <div class="dropdown" id="user-dropdown-menu">
+                <a class="menu-button" href="/my">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                        <circle cx="6.5" cy="6.5" r="6.5" fill="#ED1C24"/>
+                    </svg> <span>Мои работы</span>
+                </a>
+                <a class="menu-button" href="/post">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                        <circle cx="6.5" cy="6.5" r="6.5" fill="#ED1C24"/>
+                    </svg> <span>Загрузить работу</span>
+                </a>
+                <!-- <button class="menu-button" id="logout-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                        <circle cx="6.5" cy="6.5" r="6.5" fill="#ED1C24"/>
+                    </svg> <span>Выйти</span>
+                </button> -->
+                <form action="/api/user/logout", method="POST", class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                        <circle cx="6.5" cy="6.5" r="6.5" fill="#ED1C24"/>
+                    </svg> <input type="submit" value="Выход", class="menu-button">
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <a class="common-button" href="/login">
+            Вход
+        </a>
+        <a class="common-button" href="/registration">
+            Регистрация
+        </a>
+    {% endif %}
+</div>
+
+{% if show_logo %}
+<div class="demid-logo-header">
+    <a href="/"><img src="{{url_for('static', filename='logo.svg')}}"/></a>
+</div>
+{% endif %}
+
+<script>
+    var user_button = document.getElementById("user-button");
+
+    if (user_button)
+        user_button.onclick = function() {
+            $("#user-dropdown-menu").css("display", "flex");
+            $("#user-dropdown-menu").css("width", $("#user-button").outerWidth());
+        };
+
+    window.onclick = function(event) {
+        if (!$(event.target).is("#user")
+                && !$(event.target).is("#current-user")
+                && !$(event.target).is("#user-button"))
+                // некрасивое
+            $("#user-dropdown-menu").hide();
+    };
+
+    var logout_button = document.getElementById("logout-button");
+
+    //logout_button.onclick = function() {
+    //    fetch("/api/user/logout", {method: "POST"});
+    //    window.location.replace("/")
+    //}
+
+</script>

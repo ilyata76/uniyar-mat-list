@@ -1,0 +1,46 @@
+table {
+    width: 80%;
+} @media screen and (max-width: 1000px) {
+    .body {
+        overflow: auto;
+    }
+}
+
+thead {
+    font-weight: bolder;
+    padding-bottom: 20px;
+}
+
+    tr {
+        border-bottom: 1px solid var(--first-accent-color);
+        padding: var(--base-padding);
+    }
+
+    tr:hover, tr:focus {
+        border-bottom: 3px solid var(--main-accent-color);
+    }
+
+    td {
+        padding: var(--base-padding);
+        text-align: center;
+    }
+
+        td .id {
+            width: 5%;
+        }
+
+        td .author {
+            width: 15%
+        }
+
+        td .name {
+            width: 45%;
+        }
+
+        td .year {
+            width: 5%;
+        }
+
+        td .department {
+            width: 30%;
+        }

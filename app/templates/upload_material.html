@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+{% endblock %}
+
+{% block body %}
+<h2>Загрузить материал в систему</h2>
+
+<form action="/api/material/" method="post" class="input-form" enctype="multipart/form-data" id="material-post-form">
+    <span id="material-message">{% if message %}{{message}}{% endif %}</span>
+    <p class="input-position">
+        <input type="text" name="name" class="input-field" required placeholder="Название работы"/>
+    </p>
+    <p class="input-position">
+        <input type="text" name="year" class="input-field" required placeholder="Год выпуска"/>
+    </p>
+    <p class="input-position">
+        <input type="text" name="department" class="input-field" required placeholder="Кафедра выпуска"/>
+    </p>
+    <p class="input-position">
+        <input type="file" name="file" id="input-material" class="input-file" accept=".pdf"/>
+    </p>
+    <p class="input-position">
+        <input type="submit" class="input-button" value="Загрузить" id="submit-post-material"/>
+    </p>
+</form>
+
+<script>
+    $(document).ready(function() {
+        var mat_message = document.getElementById("material-message");
+        var post_material = document.getElementById("submit-post-material");
+        var mat_form = document.getElementById("material-post-form")
+        post_material.onclick = function(event) {
+            event.preventDefault();
+            fetch("/api/material", {method:"POST", body: new FormData(mat_form)})
+                .then(function(response) { return response.json(); })
+                .then(function(json) {
+                    if (json["name"] && json["year"] && json["department"]) {
+                        mat_form.outerHTML = `
+                            <div class="input-position" style="width: 30%">
+                                <p>Работа успешно загружена!</p>
+                                <table style="width:100%">
+                                    <tr><td>Название</td><td>${json["name"]}</td></tr>
+                                    <tr><td>Год выпуска</td><td>${json["year"]}</td></tr>
+                                    <tr><td>Кафедра</td><td>${json["department"]}</td></tr>
+                                </table>
+                            </div>
+                            <a class="input-position input-button" href="/post">
+                                Загрузить ещё
+                            </a>
+                            <style>
+                                td {
+                                    padding: 30px;
+                                    text-align: center;
+                                }
+
+                                tr {
+                                    padding: 10px;
+                                    border-bottom: 1px solid var(--first-accent-color);
+                                    width: 100%;
+                                }
+
+                                tr:hover {
+                                    border-bottom: 3px solid var(--main-accent-color);
+                                }
+                            </style>
+                        `;
+                    } else { 
+                        mat_message.innerHTML = "При загрузке работы произошла ошибка";
+                    }
+                })
+
+        }
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+{% endblock %}
+
+{% block body %}
+<h2>Регистрация</h2>
+
+<form action="/api/user/registration" method="post" class="input-form">
+    <span id="registration-message"></span>
+    <p class="input-position">
+        <input type="text" name="email" class="input-field" id="email" required placeholder="Почтовый адрес">
+    </p>
+    <p class="input-position">
+        <input type="password" name="password" class="input-field" required placeholder="Пароль">
+    </p>
+    <p class="input-position" id="dynamic-field">
+        <button class="input-button" id="continue-button">Продолжить</button>
+    </p>
+</form>
+
+<script>
+    $( document ).ready( function() {
+        var continue_button = document.getElementById("continue-button");
+        var message = document.getElementById("registration-message");
+        if (continue_button) {
+            continue_button.onclick = function(event) {
+                event.preventDefault();
+                if ($("#email").val())
+                    fetch("/api/user/"+$("#email").val(), {method: "GET"})
+                        .then((response) => {
+                            if (response.status == 200) {
+                                message.innerText = "Пользователь " 
+                                        + $("#email").val() + " уже существует";
+                            } else {
+                                var dynamic = document.getElementById("dynamic-field");
+                                if (dynamic) {
+                                    dynamic.outerHTML = `
+                                        <p class="input-position">
+                                            <input type="text" name="name" class="input-field" required placeholder="Имя">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="surname" class="input-field" required placeholder="Фамилия">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="middle_name" class="input-field" placeholder="Отчество">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="university" class="input-field" required placeholder="Университет">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="faculty" class="input-field" required placeholder="Факультет">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="department" class="input-field" required placeholder="Кафедра">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="position" class="input-field" required placeholder="Должность">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="text" name="seniority" class="input-field" required placeholder="Стаж">
+                                        </p>
+                                        <p class="input-position">
+                                            <input type="submit" class="input-button" value="Зарегистрироваться">
+                                        </p>
+                                    `
+                                }
+                            }
+                        })
+            }
+        }
+
+
+
+    });
+
+</script>
+{% endblock %}
+
+<!-- <p class="input-position">
+    <input type="password" name="password" class="input-field" placeholder="Пароль">
+</p>
+<p class="input-position">
+    <input type="text" name="name" class="input-field" placeholder="Имя">
+</p>
+<p class="input-position">
+    <input type="submit" class="input-button">
+</p> -->
+
